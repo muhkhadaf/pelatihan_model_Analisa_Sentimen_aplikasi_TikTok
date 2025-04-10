@@ -5,7 +5,7 @@ Project ini melakukan analisis sentimen terhadap review pengguna aplikasi TikTok
 ## 🧠 Metode yang Digunakan
 
 * Scraping review aplikasi TikTok menggunakan `google-play-scraper`
-* Preprocessing teks berbahasa Indonesia (pembersihan teks, stopwords, tokenisasi)
+* Preprocessing teks (pembersihan teks, stopwords, tokenisasi)
 * Pelabelan sentimen secara manual/otomatis
 * Training model deep learning dengan berbagai skema:
    * LSTM + Word2Vec
