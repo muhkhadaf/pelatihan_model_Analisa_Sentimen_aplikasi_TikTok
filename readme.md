@@ -137,14 +137,23 @@ Berikut adalah beberapa library utama yang digunakan:
    - Word2Vec: Mengubah teks menjadi vektor dengan mempertahankan konteks kata
    - TF-IDF: Mengubah teks menjadi representasi numerik berdasarkan frekuensi kata
 
-4. **Arsitektur Model**
-   - **Model 1**: LSTM dengan embedding matrix dari Word2Vec (split data 80/20)
-   ```python
-   from tensorflow.keras.models import Sequential
+Berikut versi markdown yang sudah dirapikan agar kode tampil dengan indah dan konsisten:
+
+---
+
+### 4. **Arsitektur Model**
+
+---
+
+#### - **Model 1**: LSTM dengan embedding matrix dari Word2Vec (split data 80/20)
+
+```python
+from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Embedding, LSTM, Dense, Dropout
 
 model1 = Sequential()
-model1.add(Embedding(MAX_NUM_WORDS, 100, weights=[embedding_matrix], input_length=MAX_SEQUENCE_LENGTH, trainable=False))
+model1.add(Embedding(MAX_NUM_WORDS, 100, weights=[embedding_matrix],
+                     input_length=MAX_SEQUENCE_LENGTH, trainable=False))
 model1.add(LSTM(128, dropout=0.2, recurrent_dropout=0.2))
 model1.add(Dense(64, activation='relu'))
 model1.add(Dropout(0.3))
@@ -153,18 +162,25 @@ model1.add(Dense(3, activation='softmax'))
 model1.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 model1.summary()
 
-history1 = model1.fit(X_train_pad, y_train_cat, epochs=5, batch_size=512, validation_data=(X_test_pad, y_test_cat))
-   ```
-   
-   - **Model 2**: LSTM dengan TF-IDF (split data 80/20)
-   ```python
-   from sklearn.feature_extraction.text import TfidfVectorizer
+history1 = model1.fit(X_train_pad, y_train_cat, epochs=5, batch_size=512,
+                      validation_data=(X_test_pad, y_test_cat))
+```
+
+---
+
+#### - **Model 2**: LSTM dengan TF-IDF (split data 80/20)
+
+```python
+from sklearn.feature_extraction.text import TfidfVectorizer
+import numpy as np
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import LSTM, Dense, Dropout
 
 tfidf = TfidfVectorizer(max_features=5000)
 X_train_tfidf = tfidf.fit_transform(X_train).toarray()
 X_test_tfidf = tfidf.transform(X_test).toarray()
 
-# LSTM but we reshape to 3D
+# Reshape untuk LSTM (harus 3D)
 X_train_tfidf_3d = np.expand_dims(X_train_tfidf, axis=2)
 X_test_tfidf_3d = np.expand_dims(X_test_tfidf, axis=2)
 
@@ -176,13 +192,22 @@ model2.add(Dense(3, activation='softmax'))
 
 model2.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
-history2 = model2.fit(X_train_tfidf_3d, y_train_cat, epochs=5, batch_size=512, validation_data=(X_test_tfidf_3d, y_test_cat))
+history2 = model2.fit(X_train_tfidf_3d, y_train_cat, epochs=5, batch_size=512,
+                      validation_data=(X_test_tfidf_3d, y_test_cat))
+```
 
-   ```
-   
-   - **Model 3**: CNN dengan Word2Vec (split data 70/30)
-   ```python
-   # Split ulang 70/30
+---
+
+#### - **Model 3**: CNN dengan Word2Vec (split data 70/30)
+
+```python
+# Split ulang 70/30
+from sklearn.model_selection import train_test_split
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+from tensorflow.keras.utils import to_categorical
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Embedding, Conv1D, GlobalMaxPooling1D, Dense, Dropout
+
 X_train2, X_test2, y_train2, y_test2 = train_test_split(
     df['clean_text'], df['label_encoded'],
     test_size=0.3, stratify=df['label_encoded'], random_state=42
@@ -199,10 +224,9 @@ y_train2_cat = to_categorical(y_train2, num_classes=3)
 y_test2_cat = to_categorical(y_test2, num_classes=3)
 
 # CNN model
-from tensorflow.keras.layers import Conv1D, GlobalMaxPooling1D
-
 model3 = Sequential()
-model3.add(Embedding(MAX_NUM_WORDS, 100, weights=[embedding_matrix], input_length=MAX_SEQUENCE_LENGTH, trainable=False))
+model3.add(Embedding(MAX_NUM_WORDS, 100, weights=[embedding_matrix],
+                     input_length=MAX_SEQUENCE_LENGTH, trainable=False))
 model3.add(Conv1D(128, 5, activation='relu'))
 model3.add(GlobalMaxPooling1D())
 model3.add(Dense(64, activation='relu'))
@@ -211,8 +235,12 @@ model3.add(Dense(3, activation='softmax'))
 
 model3.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
-history3 = model3.fit(X_train2_pad, y_train2_cat, epochs=5, batch_size=512, validation_data=(X_test2_pad, y_test2_cat))
-   ```
+history3 = model3.fit(X_train2_pad, y_train2_cat, epochs=5, batch_size=512,
+                      validation_data=(X_test2_pad, y_test2_cat))
+```
+
+---
+
 
 5. **Evaluasi**
    - Pengujian akurasi model pada data testing
