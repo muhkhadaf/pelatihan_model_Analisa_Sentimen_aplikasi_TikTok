@@ -1,4 +1,4 @@
-# 📱 Analisis Sentimen Review Aplikasi TikTok (Bahasa Indonesia)
+# 📱 Analisis Sentimen Review Aplikasi TikTok
 
 Project ini melakukan analisis sentimen terhadap review pengguna aplikasi TikTok dari Google Play Store menggunakan algoritma Deep Learning. Tujuan utama adalah mengklasifikasikan review ke dalam tiga kategori sentimen: **positif**, **netral**, dan **negatif**.
 
