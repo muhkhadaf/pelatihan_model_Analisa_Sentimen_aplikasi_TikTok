@@ -17,7 +17,7 @@ Project ini melakukan analisis sentimen terhadap review pengguna aplikasi TikTok
 ###  A. Jalankan di Google Colab (Disarankan)
 
 1. Buka Google Colab: https://colab.research.google.com
-2. Klik tab **"Upload"** lalu pilih file `pelatihan_model_Analisa_Sentimen_aplikasi_TikTok.ipynb`
+2. Klik tab **"Upload"** lalu pilih file `Pelatihan_model_Analisa_Sentimen_aplikasi_TikTok.ipynb`
 3. Setelah notebook terbuka, jalankan setiap sel secara berurutan (Shift + Enter)
 4. Pastikan dependencies sudah diinstal, jika belum:
 
